@@ -34,6 +34,16 @@ ControllerCategories.post("/categories/save", (req,res)=>{
 
 })
 
+ControllerCategories.get("/admin/categories",(req,res)=>
+{
+    Category.findAll().then(categories =>{
+
+        res.render("admin/cadegories/index.ejs",{categories: categories});
+    })
+    
+   
+})
+
 
 
 module.exports = ControllerCategories;
