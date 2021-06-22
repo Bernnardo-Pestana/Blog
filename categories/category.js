@@ -16,4 +16,5 @@ slug: {
 
 });
 
+
 module.exports = Category;

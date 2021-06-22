@@ -2,7 +2,9 @@ const Sequelize = require('sequelize');
 
 const connection = require('../database/database');
 
-const articles = connection.define('articles',
+const Category = require('../categories/Category');
+
+const Articles = connection.define('Articles',
 {
 
     title :{
@@ -22,5 +24,13 @@ const articles = connection.define('articles',
 
 
 });
+//relacionamento de 1-p-N entre category e articles
+Category.hasMany(Articles);
 
-module.exports = articles;
+// esse metodo permite o relacionamento 1-p-1 entre articles e category
+Articles.belongsTo(Category);
+
+
+
+
+module.exports = Articles;

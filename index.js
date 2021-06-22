@@ -1,3 +1,4 @@
+// Importação de funções
 const express = require('express');
 const connection = require('./database/database');
 const app = express();
@@ -20,6 +21,9 @@ app.use(express.static('public'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 
+//Models
+const Category = require('./categories/Category');
+const Articles = require('./articles/Article');
 
 // conexao ao banco de dados
 
