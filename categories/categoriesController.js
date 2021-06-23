@@ -10,7 +10,7 @@ const Slugify = require('slugify'); // biblioteca q transforma uma string em uma
 
 ControllerCategories.get('/admin/categories/new',(req,res)=>{
 
-    res.render("admin/cadegories/new.ejs");
+    res.render("admin/categories/new.ejs");
 });
 
 //rota para salvar a categoria criada no banco  de  dados
@@ -28,7 +28,7 @@ ControllerCategories.post("/categories/save", (req,res)=>{
         ).then(res.redirect("/"))
 
     }else{
-        res.redirect("admin/cadegories/new");
+        res.redirect("admin/categories/new");
     }
 
 
@@ -38,7 +38,7 @@ ControllerCategories.get("/admin/categories",(req,res)=>
 {
     Category.findAll().then(categories =>{
 
-        res.render("admin/cadegories/index.ejs",{categories: categories});
+        res.render("admin/categories/index.ejs",{categories: categories});
     })
     
    
@@ -84,7 +84,7 @@ ControllerCategories.get("/admin/categories/edit/:id",(req,res)=>{
     Category.findByPk(id).then(category => {
         if(category !=undefined)
         {
-            res.render("/admin/categories/edit.ejs",{category : category});
+            res.render("admin/categories/edit",{category : category});
         }else{
             res.redirect("/admin/categories");
         }
@@ -95,9 +95,17 @@ ControllerCategories.get("/admin/categories/edit/:id",(req,res)=>{
 
 })
 
+ControllerCategories.post("/categories/update", (req,res)=>{
+    var id = req.body.id;
+    var title = req.body.title;
+
+    Category.uptdate({title : title ,  slug : Slugify(title)}, {
+        where : {id : id }
 
 
+    }).then( ()=>{res.redirect("/admin/categories"); })
 
 
+})
 
 module.exports = ControllerCategories;
