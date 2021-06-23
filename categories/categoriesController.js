@@ -44,6 +44,60 @@ ControllerCategories.get("/admin/categories",(req,res)=>
    
 })
 
+ControllerCategories.post("/categories/delete",(req,res)=> //rota para deletar uma categoria. 
+                                                            //Utiliza-se a função destroy do sequelize para deletar um objeto no bd caso os parametros sejam verdadeiros 
+{
+    var id = req.body.id;
+
+    if(id !=undefined)
+    {
+        if(!isNaN(id))
+        {
+          Category.destroy({
+              where: {
+                  id : id 
+              }
+          }).then( ()=>
+          {
+              res.redirect("/admin/categories");
+            })  
+        }else{
+            res.redirect("/admin/categories");
+        }  
+
+    }else{
+        res.redirect("/admin/categories");
+    }
+
+})
+
+
+ControllerCategories.get("/admin/categories/edit/:id",(req,res)=>{    
+    var id = req.params.id;
+    
+    if(!isNaN(id))
+    {
+        res.redirect("/admin/categories");
+    }
+
+
+    Category.findByPk(id).then(category => {
+        if(category !=undefined)
+        {
+            res.render("/admin/categories/edit.ejs",{category : category});
+        }else{
+            res.redirect("/admin/categories");
+        }
+    }).catch(erro =>{
+        res.redirect("/admin/categories");
+    })
+
+
+})
+
+
+
+
 
 
 module.exports = ControllerCategories;
