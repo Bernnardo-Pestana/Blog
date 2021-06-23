@@ -74,12 +74,10 @@ ControllerCategories.post("/categories/delete",(req,res)=> //rota para deletar u
 
 ControllerCategories.get("/admin/categories/edit/:id",(req,res)=>{    
     var id = req.params.id;
-    
-    if(!isNaN(id))
+    if(isNaN(id))
     {
         res.redirect("/admin/categories");
     }
-
 
     Category.findByPk(id).then(category => {
         if(category !=undefined)
