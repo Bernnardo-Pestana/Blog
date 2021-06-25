@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <%- include ('../../partials/header.ejs'); %>
+    <body>
+        <%- include ('../../partials/navbar.ejs'); %>
+       <div class="container">
+        <hr>
+        <h2>Articles</h2>
+        <a class="btn btn-success" href="/admin/articles/new"> Criar novo Artigo </a>
+    <hr>
+
+    <table class ="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% articles.forEach( article => {  %>
+                <td><%= article.id %></td>
+                <td><%= article.title %></td>
+                <td><%= article.slug %></td>
+                <td><%= article.categoryId %></td>
+                <td>
+                    <form method="POST" action="/articles/delete" style="display: inline;" onsubmit=" confirm(event,this) "> <!- função para confirmar se deve ou não deletar. ->
+                        <input type="hidden" name="id" value = "<%= article.id %>  ">
+                        <button class ="btn  btn-danger">deletar</button>
+                       </form>
+                </td>
+            
+
+           <% }) %>
+        </tbody>
+    </table>
+       </div>
+        
+        
+    </body>
+
+
+    <%- include ('../../partials/footer.ejs'); %>
+    <script>
+        function confirm(event,form)
+        {
+            event.preventDefault();
+           var dec = confirm("Gostaria de deletar esse artigo?");
+
+           if(dec){
+            form.submit();
+           }else{
+            console.log("Nada feito");
+           }
+        }
+    </script>
+</html>
