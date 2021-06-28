@@ -96,8 +96,9 @@ ControllerCategories.get("/admin/categories/edit/:id",(req,res)=>{
 ControllerCategories.post("/categories/update", (req,res)=>{
     var id = req.body.id;
     var title = req.body.title;
+    
 
-    Category.uptdate({title : title ,  slug : Slugify(title)}, {
+    Category.update({title : title ,  slug : Slugify(title)}, {
         where : {id : id }
 
 

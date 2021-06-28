@@ -1,0 +1,60 @@
+<!Doctype html>
+<html>
+    <%- include ('../../partials/header.ejs'); %>
+    <body>
+        <%- include ('../../partials/navbar.ejs'); %>
+        <div class="container">
+            <div class="card">
+
+                <div class='card-header'>
+                 <h2>Cadastro de Artigo</h2>
+                </div>
+            
+                 <div class="card-body">          
+                    <form  method ="POST" action="/articles/update">
+                        <input type="hidden" name="id" value =" <%= article.id %>" ><br>
+                        <input  class= "form-control" type ='text' name = "title" placeholder=" <%= article.title %>"><br>
+                        <textarea id =" article " class=" form-control"  placeholder="" name="body" ></textarea><br>
+                        
+                        
+                        <label>Categorias</label>
+                        <select class="form-control" name="category">
+                            <% categories.forEach( (category)=>{  %>
+                            <% if(category.id == article.categoryId){ %> 
+                                <option  value = "<%= category.id %> " selected> <%= category.title %></option>
+                            <% } else {%>
+                                <option  value = "<%= category.id %> "> <%= category.title %></option>
+                            <% } %>
+                            
+                            <% }) %>
+                        </select><br>
+                        <button class="btn btn-success">Atualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id = "content" style="display: none;"> <%- article.body %></div>
+       
+    </body>
+
+
+    <%- include ('../../partials/footer.ejs'); %>
+
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script type="text/javascript" >
+        tinymce.init({
+          selector : "#article",
+          plugins: [
+              'advlist autolink link image lists print preview hr seachereplace wordcount fullscream insertdatetime media save table paste  '
+          ],
+          init_instance_callback: ()=>
+          {
+            tiny.get("article").setContent($("#content").html);
+          }
+      });
+
+    </script>
+
+
+</html>

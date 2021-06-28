@@ -43,7 +43,9 @@ app.use('/',ControllerArticles);
 
 app.get('/',(req,res)=>
 {
-    Articles.findAll()
+    Articles.findAll({
+        limit : 4
+    })
     .then( articles => {
 
         Category.findAll().then(categories =>{
