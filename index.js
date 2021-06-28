@@ -40,10 +40,64 @@ connection
 
 app.use('/',ControllerCategories);
 app.use('/',ControllerArticles);
+
 app.get('/',(req,res)=>
 {
-    res.render("index.ejs");
+    Articles.findAll()
+    .then( articles => {
+
+        Category.findAll().then(categories =>{
+            res.render("index.ejs",{ articles: articles, categories : categories});
+        })
+    }).catch(err =>{  res.redirect('/');})
+
 })
+
+
+app.get("/:slug", (req,res)=>{
+    
+    var slug = req.params.slug;
+
+    Articles.findOne ({
+        where : { slug : slug}
+
+    }).then( articles => {
+
+        Category.findAll().then(categories =>{
+            res.render("article.ejs",{ articles: articles, categories : categories});
+        })
+    }).catch(err =>{  res.redirect('/');})
+
+
+})
+
+
+
+
+app.get("/category/:slug", (req,res)=>{
+    
+    var slug = req.params.slug;
+
+    Category.findOne ({
+        where : { slug : slug} , include :[{ model : Articles}]
+
+    }).then( category => {
+
+        if(category != undefined)
+        {
+            Category.findAll().then(categories =>{
+                console.log( category.articles);
+
+                res.render("index.ejs",{  articles: category.articles, categories : categories });
+            })
+        }else{
+            res.redirect('/');
+        }
+    }).catch(err =>{  res.redirect('/');})
+
+
+})
+
 
 
 app.listen(8888, ()=>{console.log("funcionando")});

@@ -48,13 +48,13 @@ ControllerArticles.post('/articles/save',(req,res)=>{
             slug :  Slugify(title),
             categoryId : id
 
-        }).then( (req,res) =>{
+        }).then( () =>{
 
-            res.redirect("admin/articles/new.ejs");
+            res.redirect("/admin/articles");
 
         })
     }else{
-        res.redirect("admin/articles/new.ejs");
+        res.redirect("/admin/articles");
     }
 
        

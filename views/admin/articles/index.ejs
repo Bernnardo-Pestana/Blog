@@ -22,16 +22,18 @@
 
         <tbody>
             <% articles.forEach( article => {  %>
+            <tr>
                 <td><%= article.id %></td>
                 <td><%= article.title %></td>
                 <td><%= article.slug %></td>
                 <td><%= article.categoryId %></td>
                 <td>
-                    <form method="POST" action="/articles/delete" style="display: inline;" onsubmit=" confirm(event,this) "> <!- função para confirmar se deve ou não deletar. ->
+                    <form method="POST" action="/articles/delete" style="display: inline;" "> <!- função para confirmar se deve ou não deletar. ->
                         <input type="hidden" name="id" value = "<%= article.id %>  ">
                         <button class ="btn  btn-danger">deletar</button>
                        </form>
                 </td>
+            </tr>
             
 
            <% }) %>
@@ -45,16 +47,6 @@
 
     <%- include ('../../partials/footer.ejs'); %>
     <script>
-        function confirm(event,form)
-        {
-            event.preventDefault();
-           var dec = confirm("Gostaria de deletar esse artigo?");
-
-           if(dec){
-            form.submit();
-           }else{
-            console.log("Nada feito");
-           }
-        }
+        
     </script>
 </html>
