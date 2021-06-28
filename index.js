@@ -7,6 +7,8 @@ const ControllerCategories = require('./categories/categoriesController')
 
 const ControllerArticles = require('./articles/articlesController')
 
+const ControllerAdmin = require("./admin/AdminController");
+
 const bodyparser = require('body-parser');
 
 //carregar a view ejs
@@ -24,6 +26,7 @@ app.use(bodyparser.json());
 //Models
 const Category = require('./categories/Category');
 const Articles = require('./articles/Article');
+const Admin = require('./admin/Admin');
 
 // conexao ao banco de dados
 
@@ -40,6 +43,7 @@ connection
 
 app.use('/',ControllerCategories);
 app.use('/',ControllerArticles);
+app.use('/',ControllerAdmin);
 
 app.get('/',(req,res)=>
 {
