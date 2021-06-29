@@ -1,7 +1,9 @@
 // Importação de funções
 const express = require('express');
 const connection = require('./database/database');
+const session = require("express-session");
 const app = express();
+
 
 const ControllerCategories = require('./categories/categoriesController')
 
@@ -12,8 +14,14 @@ const ControllerAdmin = require("./admin/AdminController");
 const bodyparser = require('body-parser');
 
 //carregar a view ejs
-
 app.set('view engine', 'ejs');
+
+// config de sessoes
+app.use(session({
+    secret : "secret",
+    cookie: { maxAge: 30000}
+
+}))
 
 //static
 app.use(express.static('public'));
@@ -104,6 +112,12 @@ app.get("/category/:slug", (req,res)=>{
 
 })
 
+app.get("/session", (req,res)=>{
 
+})
+
+app.get("/leitura", (req,res)=>{
+    
+})
 
 app.listen(8888, ()=>{console.log("funcionando")});

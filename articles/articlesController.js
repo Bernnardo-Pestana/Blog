@@ -4,12 +4,14 @@ const ControllerArticles = express.Router();
 
 const Category = require("../categories/Category")
 
+const adminAuth = require("../middleware/adminAuth");
+
 const Article = require("./Article");
 
 const Slugify = require('slugify'); // biblioteca q transforma uma string em uma slug(string em url)
 
 
-ControllerArticles.get('/admin/articles',(req,res)=>{
+ControllerArticles.get('/admin/articles',adminAuth,(req,res)=>{
 
     Article.findAll({
         include: [ {model: Category}]
